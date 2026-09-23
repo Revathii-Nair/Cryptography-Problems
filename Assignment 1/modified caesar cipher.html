@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Modified Caesar Cipher Decryption</title>
+  </head>
+   <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+    }
+
+    button {
+      padding: 8px 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background: #0056b3;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div >
+    <h2>Modified Caesar Cipher Decryption</h2>
+
+    <textarea id="cipherText" placeholder="Enter cipher text"></textarea><br />
+    <input id="key" type="number" placeholder="Enter numeric key" /><br />
+    <button onclick="decrypt()">Decrypt</button>
+    <div id="result"></div>
+  </div>
+
+    <script>
+      function modifiedCaesarDecrypt(cipherText, key) {
+        let result = "";
+        key = key;
+        for (let char of cipherText) {
+          code = char.charCodeAt(0);
+          base = char == char.toUpperCase() ? "A".charCodeAt(0) : "a".charCodeAt(0);
+          if ((65 <= code && code <= 90) || (97 <= code && code <= 122)) {
+            result += String.fromCharCode(((code - key - base + 26) % 26) + base);
+          } else {
+            result += char;
+          }
+        }
+        return result;
+      }
+
+      function decrypt() {
+        const cipherText = document.getElementById("cipherText").value;
+        const key = parseInt(document.getElementById("key").value);
+        if (isNaN(key)) {
+          document.getElementById("result").innerText = "Key must be a number!";
+          return;
+        }
+        const decrypted = modifiedCaesarDecrypt(cipherText, key);
+        document.getElementById("result").innerText = "Plain Text: " + decrypted;
+      }
+    </script>
+  </body>
+</html>

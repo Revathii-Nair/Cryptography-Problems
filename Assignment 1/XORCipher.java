@@ -2,7 +2,6 @@ public class XORCipher {
     public static void main(String[] args) {
         String str = "Hello World";
 
-        // XOR each character with 0
         System.out.println("XOR with 0:");
         StringBuilder result0 = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
@@ -16,7 +15,6 @@ public class XORCipher {
 
         System.out.println();
 
-        // XOR each character with 1
         System.out.println("XOR with 1:");
         StringBuilder result1 = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
