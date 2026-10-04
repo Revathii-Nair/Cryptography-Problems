@@ -1,0 +1,22 @@
+
+
+p = int(input("Enter a prime number (p): "))
+g = int(input("Enter a primitive root / base (g): "))
+
+a = int(input("Alice's private key (a): "))
+b = int(input("Bob's private key (b): "))
+
+A = pow(g, a, p)      # Alice public key = g^a mod p
+B = pow(g, b, p)      # Bob public key   = g^b mod p
+print("\nAlice's public key:", A)
+print("Bob's public key  :", B)
+
+alice_secret = pow(B, a, p)   # B^a mod p
+bob_secret = pow(A, b, p)     # A^b mod p
+print("\nSecret key calculated by Alice:", alice_secret)
+print("Secret key calculated by Bob  :", bob_secret)
+
+if alice_secret == bob_secret:
+    print("Key exchange successful! Shared secret =", alice_secret)
+else:
+    print("Keys do not match.")
