@@ -1,9 +1,21 @@
-A = {'x1': 0.2, 'x2': 0.5, 'x3': 0.8}
-B = {'y1': 0.4, 'y2': 0.7, 'y3': 0.3}
-Y = {'y1': 1, 'y2': 1, 'y3': 1}
+A = {}
+B = {}
+Y = {}
+
+n = int(input("Enter number of elements in A: "))
+for i in range(n):
+    key = input("Enter term: ")
+    A[key] = float(input("Enter value in A: "))
+
+n = int(input("Enter number of elements in B: "))
+for i in range(n):
+    key = input("Enter term: ")
+    B[key] = float(input("Enter value in B: "))
+
+for i in range(A):
+    Y["y" + str(i + 1)] = 1
 
 A_comp = {}
-
 for x in A:
     A_comp[x] = round(1 - A[x], 2)
 

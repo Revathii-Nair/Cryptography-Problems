@@ -1,6 +1,21 @@
-A = {'x1': 0.2, 'x2': 0.5, 'x3': 0.8}
-B = {'y1': 0.4, 'y2': 0.7, 'y3': 0.3}
-C = {'y1': 0.6, 'y2': 0.2, 'y3': 0.9}
+A={}
+B={}
+C={}
+
+n = int(input("Enter number of elements in A: "))
+for i in range(n):
+    key = input("Enter term: ")
+    A[key] = float(input("Enter value in A: "))
+
+n = int(input("Enter number of elements in B: "))
+for i in range(n):
+    key = input("Enter term: ")
+    B[key] = float(input("Enter value in B: "))
+
+n = int(input("Enter number of elements in C: "))
+for i in range(n):
+    key = input("Enter term: ")
+    C[key] = float(input("Enter value in C: "))
 
 A_complement = {}
 for x in A:

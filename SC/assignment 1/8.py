@@ -1,33 +1,70 @@
 high = [0, 0.2, 0.4, 0.7, 1.0]
 low = [1, 0.8, 0.6, 0.4, 0.2]
 
-print("Base terms : high, low")
-print("Hedges: very, fairly, slightly")
-words = input("Enter term (e.g. very very high): ").lower().split()
+print("Linguistic terms: high, low")
+print("Hedges: very, fairly, slightly, not")
+print("Operators: and, or")
+words = input("Enter term: ").lower().split()
 
-last = words[-1]
-if last != "high" and last != "low":
-    print("Unknown base term:", last)
-    exit()
-
-power = 1
-for i in range(len(words) - 1):
-    if words[i] == "very":
-        power = power * 2
-    elif words[i] == "fairly":
-        power = power * (2 / 3)
-    elif words[i] == "slightly":
-        power = power * 0.5
+def evaluate(words):
+    last = words[-1]
+    if last == "high":
+        values = high[:]
+    elif last == "low":
+        values = low[:]
     else:
-        print("Unknown hedge:", words[i])
+        print("Unknown term:", last)
         exit()
+    
+    power = 1
+    negate = False
+    for word in words[:-1]:
+        if word == "very":
+            power *= 2
+        elif word == "fairly":
+            power *= (2 / 3)
+        elif word == "slightly":
+            power *= 0.5
+        elif word == "not":
+            negate = not negate
+        else:
+            print("Unknown hedge:", word)
+            exit()
+    
+    result = []
+    for value in values:
+        result.append(value ** power)
+
+    if negate:
+        temp = []
+        for value in result:
+            temp.append(1 - value)
+        result = temp
+
+    return result
+
+
+if "or" in words:
+    pos = words.index("or")
+    left = evaluate(words[:pos])
+    right = evaluate(words[pos + 1:])
+    result = []
+    for i in range(len(left)):
+        result.append(max(left[i], right[i]))
+
+elif "and" in words:
+    pos = words.index("and")
+    left = evaluate(words[:pos])
+    right = evaluate(words[pos + 1:])
+    result = []
+    for i in range(len(left)):
+        result.append(min(left[i], right[i]))
+
+else:
+    result = evaluate(words)
 
 print("\nResult:")
-for j in range(5):
-    if last == "high":
-        value = high[j]
-    else:
-        value = low[j]
-    result = value ** power
-    print(f"{result:.4f}", end=" ")
+for value in result:
+    print(f"{value:.4f}", end=" ")
+
 print()
